@@ -1,0 +1,99 @@
+#!/bin/bash
+
+# Configuration
+PREFIX=devstack
+COMPOSE=PATH/TO/docker-compose.yml
+USER=dfx
+
+# Functions
+usage() {
+cat << EOF
+Usage: ${0##*/} [-h]
+
+Control your devstack.
+
+Options:
+
+  -h          Display this help and exit.
+
+Commands:
+  up          Start the devstack.
+  stop        Stop the devstack.
+  die         Destroy the devstack.
+  logs        Follow the devstack logs.
+  g|go        Attach container in devstack.
+  gu|gou      Attach container in devstack with user.
+EOF
+}
+
+call() {
+	docker-compose -p $PREFIX -f $COMPOSE $*
+}
+
+run() {
+	call up -d
+}
+
+stop() {
+	call stop
+}
+
+destroy() {
+	call stop
+	call rm --all
+}
+
+logs() {
+	call logs -f
+}
+
+go() {
+	container=$1
+	command=${2:-/bin/bash}
+	call exec $container $command
+}
+
+gou() {
+	call exec $1 su $USER
+}
+
+# Main switch
+case "$1" in
+	up)
+		run
+		exit 0
+		;;
+	stop)
+		stop
+		exit 0
+		;;
+	die)
+		destroy
+		exit 0
+		;;
+	logs)
+		logs
+		exit 0
+		;;
+	g)
+		go $2 $3
+		exit 0
+		;;
+	go)
+		go $2 $3
+		exit 0
+		;;
+	gu)
+		gou $2
+		exit 0
+		;;
+	gou)
+		gou $2
+		exit 0
+		;;
+	*)
+		usage
+		exit 1
+		;;
+esac
+shift
