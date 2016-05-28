@@ -21,8 +21,9 @@ Commands:
   stop        Stop the devstack.
   die         Destroy the devstack.
   logs        Follow the devstack logs.
+  exec        Exec command in container.
   g|go        Attach container in devstack.
-  gu|gou      Attach container in devstack with user.
+  gu|gou      Attach container in devstack as user.
 EOF
 }
 
@@ -47,10 +48,12 @@ logs() {
 	call logs -f
 }
 
+fire() {
+	call exec $1
+}
+
 go() {
-	container=$1
-	command=${2:-/bin/bash}
-	call exec $container $command
+	call exec $1 /bin/bash
 }
 
 gou() {
@@ -73,6 +76,10 @@ case "$1" in
 		;;
 	logs)
 		logs
+		exit 0
+		;;
+	exec)
+		fire
 		exit 0
 		;;
 	g)
