@@ -3,7 +3,7 @@
 [![Docker Stars](https://img.shields.io/docker/stars/dockette/devstack.svg?style=flat)](https://hub.docker.com/r/dockette/devstack/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/dockette/devstack.svg?style=flat)](https://hub.docker.com/r/dockette/devstack/)
 
-Great lamp devstack for you home programming.
+Great LAMP devstack for you home programming.
 
 ## LAMP
 
@@ -31,7 +31,9 @@ Commands:
   stop        Stop the devstack.
   die         Destroy the devstack.
   logs        Follow the devstack logs.
-  go          Attach container in devstack.
+  exec        Exec command in container.
+  g|go        Attach container in devstack.
+  gu|gou      Attach container in devstack as user.
 ```
 
 ### Install
@@ -62,7 +64,7 @@ My example docker-compose file.
 
 ```yaml
 apache:
-  image: f3l1x/devstack:apache
+  image: dockette/devstack:apache
 
   volumes_from:
     - data
