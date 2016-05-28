@@ -25,4 +25,4 @@ RUN echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list.d/
     apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
 
-CMD ["php-fpm7.0", "-F"]
+CMD ["php"]
