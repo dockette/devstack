@@ -17,6 +17,7 @@ RUN echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list.d/
         php7.0-mysql \
         php7.0-sqlite \
         php7.0-gd \
+        php7.0-mongo \
         php7.0-xdebug \
         php7.0-mcrypt && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \

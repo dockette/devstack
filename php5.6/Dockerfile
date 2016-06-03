@@ -18,6 +18,7 @@ RUN echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list.d/
         php5-sqlite \
         php5-gd \
         php5-xdebug \
+        php5-mongo \
         php5-mcrypt && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     ln -s /etc/php/mods-available/devstack.ini /etc/php5/cli/conf.d/999-devstack.ini && \
