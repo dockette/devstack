@@ -18,6 +18,8 @@ Options:
 
 Commands:
   up          Start the devstack.
+  build       Build the devstack.
+  reup        Build & Start the devstack.
   stop        Stop the devstack.
   die         Destroy the devstack.
   logs        Follow the devstack logs.
@@ -31,8 +33,17 @@ call() {
 	docker-compose -p $PREFIX -f $COMPOSE $*
 }
 
-run() {
+up() {
 	call up -d
+}
+
+build() {
+	call build
+}
+
+reup() {
+	build
+	up
 }
 
 stop() {
@@ -63,7 +74,15 @@ gou() {
 # Main switch
 case "$1" in
 	up)
-		run
+		up
+		exit 0
+		;;
+	build)
+		build
+		exit 0
+		;;
+	reup)
+		reup
 		exit 0
 		;;
 	stop)
