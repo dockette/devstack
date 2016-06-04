@@ -64,56 +64,10 @@ Commands:
 
 ### docker-compose.yml
 
-My example docker-compose file.
+Prepared config file. You can download it.
 
-```yaml
-apache:
-  image: dockette/devstack:apache
-
-  volumes_from:
-    - data
-
-  ports:
-    - 80:80
-    - 443:443
-
-  links:
-    - php7:php
-    - php7:php7
-    - php56:php56
-
-php56:
-  image: dockette/devstack:php56-fpm
-
-  volumes_from:
-    - data
-
-  links:
-    - mariadb:db
-
-php7:
-  image: dockette/devstack:php7-fpm
-
-  volumes_from:
-    - data
-
-  links:
-    - mariadb:db
-
-mariadb:
-  image: mariadb:10.1
-
-  volumes:
-    - ./data/mariadb-db:/var/lib/mysql
-
-  environment:
-    - MYSQL_ROOT_PASSWORD=root
-
-data:
-  image: busybox
-
-  volumes:
-     - ~/:/srv
+```
+wget https://raw.githubusercontent.com/dockette/devstack/master/docker-compose.yml
 ```
 
 #### Hosts
