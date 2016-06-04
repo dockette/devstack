@@ -2,8 +2,9 @@
 
 # Configuration
 PREFIX=devstack
-COMPOSE=PATH/TO/docker-compose.yml
+COMPOSE=./docker-compose.yml
 USER=dfx
+VERSION=1.0
 
 # Functions
 usage() {
@@ -11,6 +12,8 @@ cat << EOF
 Usage: ${0##*/} [-h]
 
 Control your devstack.
+
+Version: $VERSION
 
 Options:
 

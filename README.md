@@ -9,11 +9,11 @@ Great LAMP devstack for you home programming.
 
 - Apache >= 2.4.10
 - PHP
-   - >= 7.0.6
-   - >= 5.6.20
+   - >= 7.0.x
+   - >= 5.6.x
    - NodeJS 5.x + NPM (Gulp, Grunt)
    - Composer
-- MariaDB >= 10.1.0
+- MariaDB >= 10.1.x
 
 ## Bin
 
@@ -22,12 +22,16 @@ Usage: devstack [-h]
 
 Control your devstack.
 
+Version: 1.0
+
 Options:
 
   -h          Display this help and exit.
 
 Commands:
   up          Start the devstack.
+  build       Build the devstack.
+  reup        Build & Start the devstack.
   stop        Stop the devstack.
   die         Destroy the devstack.
   logs        Follow the devstack logs.
