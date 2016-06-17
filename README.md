@@ -10,7 +10,8 @@ Great LAMP devstack for you home programming.
 - Apache >= 2.4.10
 - PHP
    - >= 7.0.x
-   - >= 5.6.x
+   - >= 5.6.
+   - PHPMailer
    - NodeJS 5.x + NPM (Gulp, Grunt)
    - Composer
 - MariaDB >= 10.1.x
