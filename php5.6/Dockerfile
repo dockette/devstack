@@ -27,6 +27,7 @@ RUN echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list.d/
         php5-ldap \
         php5-redis \
         php5-xmlrpc \
+        php5-ssh2 \
         php5-xdebug && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     ln -s /etc/php/mods-available/devstack.ini /etc/php5/cli/conf.d/999-devstack.ini && \
