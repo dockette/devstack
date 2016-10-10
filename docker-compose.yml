@@ -1,47 +1,56 @@
-apache:
-  image: dockette/devstack:apache
+version: '2'
 
-  volumes_from:
-    - data
+services:
+  apache:
+    image: dockette/devstack:apache
 
-  ports:
-    - 80:80
-    - 443:443
+    volumes_from:
+      - data
 
-  links:
-    - php7:php
-    - php7:php7
-    - php56:php56
+    ports:
+      - 80:80
+      - 443:443
 
-php56:
-  image: dockette/devstack:php56-fpm
+    links:
+      - php7:php
+      - php7:php7
+      - php56:php56
 
-  volumes_from:
-    - data
+  php56:
+    image: dockette/devstack:php56-fpm
 
-  links:
-    - mariadb:db
+    volumes_from:
+      - data
 
-php7:
-  image: dockette/devstack:php7-fpm
+    links:
+      - mariadb:db
 
-  volumes_from:
-    - data
+  php7:
+    image: dockette/devstack:php7-fpm
 
-  links:
-    - mariadb:db
+    volumes_from:
+      - data
 
-mariadb:
-  image: mariadb:10.1
+    links:
+      - mariadb:db
 
-  volumes:
-    - ./data/mariadb-db:/var/lib/mysql
+  nodejs:
+    image: dockette/devstack:nodejs
 
-  environment:
-    - MYSQL_ROOT_PASSWORD=root
+    volumes_from:
+      - data
 
-data:
-  image: busybox
+  mariadb:
+    image: mariadb:10.1
 
-  volumes:
-     - ~/:/srv
+    volumes:
+      - ./data/mariadb-db:/var/lib/mysql
+
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+
+  data:
+    image: busybox
+
+    volumes:
+       - ~/:/srv
