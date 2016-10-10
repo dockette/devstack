@@ -1,0 +1,13 @@
+FROM dockette/debian:jessie
+
+MAINTAINER Milan Sulc <sulcmil@gmail.com>
+
+RUN apt-get update && apt-get update -y && \
+    curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g gulp bower grunt && \
+    apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
+
+VOLUME /srv
+WORKDIR /srv
