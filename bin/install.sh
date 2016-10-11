@@ -17,3 +17,8 @@ ln -s ${LOCAL}/composer ${BIN}/composer
 echo "Setup: composer"
 chmod +x ${LOCAL}/composer56
 ln -s ${LOCAL}/composer56 ${BIN}/composer56
+
+echo "Setup: nodejs"
+chmod +x ${LOCAL}/nodejs
+ln -s ${LOCAL}/nodejs ${BIN}/nodejs
+

@@ -9,8 +9,9 @@ ENV PHPMAILER_PATH=/srv/mails
 ENV SSH_AUTH_SOCK=/ssh-agent
 
 RUN apt-get update && apt-get update -y && \
-    apt-get install -y wget curl git && \
+    apt-get install -y wget curl git bash-completion && \
     echo "    IdentityFile ~/.ssh/id_rsa" >> /etc/ssh/ssh_config && \
+    curl -o /etc/bash_completion.d/composer https://raw.githubusercontent.com/iArren/composer-bash-completion/master/composer && \
     curl -o ${PHPMAILER_BIN} https://raw.githubusercontent.com/dockette/phpmailer/master/phpmailer && \
     mkdir -p ${PHPMAILER_PATH} && \
     chmod 755 ${PHPMAILER_BIN} && \

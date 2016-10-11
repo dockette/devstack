@@ -8,8 +8,11 @@ rm ${BIN}/php
 echo "Remove symlink: php56"
 rm ${BIN}/php56
 
-echo "Remove symlink: composer"
+echo "Remove symlink: composer7"
 rm ${BIN}/composer
 
-echo "Remove symlink: composer"
+echo "Remove symlink: composer56"
 rm ${BIN}/composer56
+
+echo "Remove symlink: nodejs"
+rm ${BIN}/nodejs
