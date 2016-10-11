@@ -14,3 +14,5 @@ RUN apt-get update && apt-get update -y && \
 
 VOLUME /srv
 WORKDIR /srv
+
+CMD /bin/bash
