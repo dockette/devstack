@@ -3,5 +3,6 @@ docker run \
 	-i \
 	--rm \
 	-v $(pwd):$(pwd) \
+	-w $(pwd) \
 	-u dfx \
 	dockette/devstack:nodejs nodejs "$@"

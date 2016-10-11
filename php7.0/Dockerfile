@@ -34,7 +34,7 @@ RUN echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list.d/
         php7.0-apcu \
         php7.0-xdebug && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    composer global require "hirak/prestissimo:^0.3" \
+    composer global require "hirak/prestissimo:^0.3" && \
     ln -s /etc/php/7.0/mods-available/devstack.ini /etc/php/7.0/cli/conf.d/999-devstack.ini && \
     ln -s /etc/php/7.0/mods-available/devstack.ini /etc/php/7.0/cgi/conf.d/999-devstack.ini && \
     apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \

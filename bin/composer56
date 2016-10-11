@@ -3,6 +3,7 @@ docker run \
 	-it \
 	--rm \
 	-v $(pwd):$(pwd) \
+	-w $(pwd) \
 	-u dfx \
 	dockette/devstack:php56 \
 	php /usr/local/bin/composer "$@"
