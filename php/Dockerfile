@@ -2,7 +2,7 @@ FROM dockette/debian:jessie
 
 MAINTAINER Milan Sulc <sulcmil@gmail.com>
 
-ENV PHP_IDE_CONFIG="serverName=docker"
+ENV PHP_IDE_CONFIG="serverName=devstack.webserver"
 ENV XDEBUG_CONFIG="idekey=PHPSTORM"
 ENV PHPMAILER_BIN=/usr/local/bin/phpmailer
 ENV PHPMAILER_PATH=/srv/mails

@@ -2,9 +2,9 @@
 
 # Configuration
 PREFIX=devstack
-COMPOSE=docker-compose.yml
+COMPOSE=./docker-compose.yml
 USER=dfx
-VERSION=1.0
+VERSION=1.1
 
 # Functions
 usage() {

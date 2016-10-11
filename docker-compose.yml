@@ -44,7 +44,7 @@ services:
     image: mariadb:10.1
 
     volumes:
-      - ./data/mariadb-db:/var/lib/mysql
+      - ./data/mariadb:/var/lib/mysql
 
     environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -54,3 +54,19 @@ services:
 
     volumes:
        - ~/:/srv
+
+  userdirs:
+    image: busybox
+
+    volumes:
+      - ./data/root-dir:/root
+      - ./data/dfx-dir:/home/dfx
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.10.10.0/24
+        gateway: 172.10.10.1

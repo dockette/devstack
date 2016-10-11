@@ -31,6 +31,7 @@ RUN echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list.d/
         php5-apcu \
         php5-xdebug && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    composer global require "hirak/prestissimo:^0.3" \
     ln -s /etc/php5/mods-available/devstack.ini /etc/php5/cli/conf.d/999-devstack.ini && \
     ln -s /etc/php5/mods-available/devstack.ini /etc/php5/cgi/conf.d/999-devstack.ini && \
     apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \

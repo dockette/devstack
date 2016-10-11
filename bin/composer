@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+docker run \ 
+	-it \
+	--rm \
+	-v $(pwd):$(pwd) \
+	-u dfx \
+	dockette/devstack:php7 \
+	php /usr/local/bin/composer "$@"
