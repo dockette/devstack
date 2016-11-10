@@ -1,0 +1,90 @@
+FROM dockette/jessie
+
+MAINTAINER Milan Sulc <sulcmil@gmail.com>
+
+# SSH
+ENV SSH_AUTH_SOCK=/ssh-agent
+
+# PHP
+ENV PHP_MODS_DIR=/etc/php5/mods-available
+ENV PHP_CLI_CONF_DIR=/etc/php5/cli/conf.d
+ENV PHP_CGI_CONF_DIR=/etc/php5/cgi/conf.d
+ENV PHP_FPM_CONF_DIR=/etc/php5/fpm/conf.d
+
+# XDEBUG
+ENV PHP_IDE_CONFIG="serverName=devstack.webserver"
+ENV XDEBUG_CONFIG="idekey=PHPSTORM"
+
+# MAILER
+ENV PHPMAILER_BIN=/usr/local/bin/phpmailer
+ENV PHPMAILER_PATH=/srv/mails
+
+# DEBUGGING
+ENV BLACKFIRE_AGENT=tcp://blackfire:8707
+
+# FILES
+ADD conf.d/devstack.ini ${PHP_MODS_DIR}/devstack.ini
+
+# INSTALLATION
+RUN apt-get update && apt-get dist-upgrade -y && \
+    # DEPENDENCIES #############################################################
+    apt-get install -y wget curl git bash-completion && \
+    # COMPLETION ###############################################################
+    cp /etc/skel/.bashrc ~/ && \
+    cp /etc/skel/.bashrc /home/dfx/ && chown dfx:dfx -R /home/dfx/ && \
+    # SSH ######################################################################
+    echo "    IdentityFile ~/.ssh/id_rsa" >> /etc/ssh/ssh_config && \
+    # PHP DOTDEB ###############################################################
+    echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list.d/dotdeb.list && \
+    echo 'deb-src http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list.d/dotdeb.list && \
+    wget http://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg && rm dotdeb.gpg && \
+    apt-get update && \
+    apt-get install -y \
+        php5-apcu \
+        php5-cli \
+        php5-cgi \
+        php5-curl \
+        php5-fpm \
+        php5-geoip \
+        php5-gd \
+        php5-intl \
+        php5-imagick \
+        php5-imap \
+        php5-ldap \
+        php5-mcrypt \
+        php5-memcached \
+        php5-mongo \
+        php5-mysql \
+        php5-pgsql \
+        php5-redis \
+        php5-sqlite \
+        php5-ssh2 \
+        php5-xmlrpc \
+        php5-xsl \
+        php5-xdebug && \
+    # PHPMAILER ################################################################
+    curl -o ${PHPMAILER_BIN} https://raw.githubusercontent.com/dockette/phpmailer/master/phpmailer && \
+    mkdir -p ${PHPMAILER_PATH} && \
+    chmod 755 ${PHPMAILER_BIN} && \
+    chmod 777 ${PHPMAILER_PATH} && \
+    # COMPOSER #################################################################
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    composer global require "hirak/prestissimo:^0.3" && \
+    composer global require bamarni/symfony-console-autocomplete && \
+    ~/.composer/vendor/bin/symfony-autocomplete --shell bash composer | tee /etc/bash_completion.d/composer && \
+    # BLACKFIRE ################################################################
+    curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/70 && \
+    tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp && mv /tmp/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so && \
+    printf "extension=blackfire.so\nblackfire.agent_socket=${BLACKFIRE_AGENT}\n" > ${PHP_MODS_DIR}/blackfire.ini && \
+    # PHP MOD(s) ###############################################################
+    ln -s ${PHP_MODS_DIR}/blackfire.ini ${PHP_CLI_CONF_DIR}/20-devstack.ini && \
+    ln -s ${PHP_MODS_DIR}/blackfire.ini ${PHP_CGI_CONF_DIR}/20-devstack.ini && \
+    ln -s ${PHP_MODS_DIR}/blackfire.ini ${PHP_FPM_CONF_DIR}/20-devstack.ini && \
+    ln -s ${PHP_MODS_DIR}/devstack.ini ${PHP_CLI_CONF_DIR}/999-devstack.ini && \
+    ln -s ${PHP_MODS_DIR}/devstack.ini ${PHP_CGI_CONF_DIR}/999-devstack.ini && \
+    ln -s ${PHP_MODS_DIR}/devstack.ini ${PHP_FPM_CONF_DIR}/999-devstack.ini && \
+    # CLEAN UP #################################################################
+    apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
+
+CMD ["php"]
