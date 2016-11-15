@@ -7,9 +7,12 @@ ENV SSH_AUTH_SOCK=/ssh-agent
 
 # PHP
 ENV PHP_MODS_DIR=/etc/php/7.0/mods-available
-ENV PHP_CLI_CONF_DIR=/etc/php/7.0/cli/conf.d
-ENV PHP_CGI_CONF_DIR=/etc/php/7.0/cgi/conf.d
-ENV PHP_FPM_CONF_DIR=/etc/php/7.0/fpm/conf.d
+ENV PHP_CLI_DIR=/etc/php/7.0/cli/
+ENV PHP_CLI_CONF_DIR=${PHP_CLI_DIR}/conf.d
+ENV PHP_CGI_DIR=/etc/php/7.0/cgi/
+ENV PHP_CGI_CONF_DIR=${PHP_CGI_DIR}/conf.d
+ENV PHP_FPM_DIR=/etc/php/7.0/fpm/
+ENV PHP_FPM_CONF_DIR=${PHP_FPM_DIR}/conf.d
 
 # XDEBUG
 ENV PHP_IDE_CONFIG="serverName=devstack.webserver"
@@ -21,9 +24,6 @@ ENV PHPMAILER_PATH=/srv/mails
 
 # DEBUGGING
 ENV BLACKFIRE_AGENT=tcp://blackfire:8707
-
-# FILES
-ADD conf.d/devstack.ini ${PHP_MODS_DIR}/devstack.ini
 
 # INSTALLATION
 RUN apt-get update && apt-get dist-upgrade -y && \
@@ -82,7 +82,7 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     # PHP MOD(s) ###############################################################
     ln -s ${PHP_MODS_DIR}/blackfire.ini ${PHP_CLI_CONF_DIR}/20-devstack.ini && \
     ln -s ${PHP_MODS_DIR}/blackfire.ini ${PHP_CGI_CONF_DIR}/20-devstack.ini && \
-    ln -s ${PHP_MODS_DIR}/blackfire.ini ${PHP_PM_CONF_DIR}/20-devstack.ini && \
+    ln -s ${PHP_MODS_DIR}/blackfire.ini ${PHP_FPM_CONF_DIR}/20-devstack.ini && \
     ln -s ${PHP_MODS_DIR}/devstack.ini ${PHP_CLI_CONF_DIR}/999-devstack.ini && \
     ln -s ${PHP_MODS_DIR}/devstack.ini ${PHP_CGI_CONF_DIR}/999-devstack.ini && \
     ln -s ${PHP_MODS_DIR}/devstack.ini ${PHP_FPM_CONF_DIR}/999-devstack.ini && \
@@ -90,4 +90,9 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
 
+# FILES
+ADD conf.d/devstack.ini ${PHP_MODS_DIR}/devstack.ini
+ADD fpm/php-fpm.conf ${PHP_FPM_DIR}/php-fpm.conf
+
+# COMMAND
 CMD ["php-fpm7.0", "-F"]

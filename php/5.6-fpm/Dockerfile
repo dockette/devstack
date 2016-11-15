@@ -7,9 +7,12 @@ ENV SSH_AUTH_SOCK=/ssh-agent
 
 # PHP
 ENV PHP_MODS_DIR=/etc/php5/mods-available
-ENV PHP_CLI_CONF_DIR=/etc/php5/cli/conf.d
-ENV PHP_CGI_CONF_DIR=/etc/php5/cgi/conf.d
-ENV PHP_FPM_CONF_DIR=/etc/php5/fpm/conf.d
+ENV PHP_CLI_DIR=/etc/php5/cli/
+ENV PHP_CLI_CONF_DIR=${PHP_CLI_DIR}/conf.d
+ENV PHP_CGI_DIR=/etc/php5/cgi/
+ENV PHP_CGI_CONF_DIR=${PHP_CGI_DIR}/conf.d
+ENV PHP_FPM_DIR=/etc/php5/fpm/
+ENV PHP_FPM_CONF_DIR=${PHP_FPM_DIR}/conf.d
 
 # XDEBUG
 ENV PHP_IDE_CONFIG="serverName=devstack.webserver"
@@ -21,9 +24,6 @@ ENV PHPMAILER_PATH=/srv/mails
 
 # DEBUGGING
 ENV BLACKFIRE_AGENT=tcp://blackfire:8707
-
-# FILES
-ADD conf.d/devstack.ini ${PHP_MODS_DIR}/devstack.ini
 
 # INSTALLATION
 RUN apt-get update && apt-get dist-upgrade -y && \
@@ -73,7 +73,7 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     composer global require bamarni/symfony-console-autocomplete && \
     ~/.composer/vendor/bin/symfony-autocomplete --shell bash composer | tee /etc/bash_completion.d/composer && \
     # BLACKFIRE ################################################################
-    curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/70 && \
+    curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/56 && \
     tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp && mv /tmp/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so && \
     printf "extension=blackfire.so\nblackfire.agent_socket=${BLACKFIRE_AGENT}\n" > ${PHP_MODS_DIR}/blackfire.ini && \
     # PHP MOD(s) ###############################################################
@@ -87,4 +87,9 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
 
-CMD ["php"]
+# FILES
+ADD conf.d/devstack.ini ${PHP_MODS_DIR}/devstack.ini
+ADD fpm/php-fpm.conf ${PHP_FPM_DIR}/php-fpm.conf
+
+# COMMAND
+CMD ["php5-fpm", "-F"]
