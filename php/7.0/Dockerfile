@@ -22,6 +22,7 @@ ENV PHPMAILER_PATH=/srv/mails
 
 # DEBUGGING
 ENV BLACKFIRE_AGENT=tcp://blackfire:8707
+ENV BLACKFIRE_VERSION=1.9.1
 
 # INSTALLATION
 RUN apt-get update && apt-get dist-upgrade -y && \
@@ -76,6 +77,8 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/70 && \
     tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp && mv /tmp/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so && \
     printf "extension=blackfire.so\nblackfire.agent_socket=${BLACKFIRE_AGENT}\n" > ${PHP_MODS_DIR}/blackfire.ini && \
+    curl -A "Docker" -o /usr/local/bin/blackfire -D - -L -s https://packages.blackfire.io/binaries/blackfire-agent/${BLACKFIRE_VERSION}/blackfire-cli-linux_static_amd64 && \
+    chmod +x /usr/local/bin/blackfire && \
     # PHP MOD(s) ###############################################################
     ln -s ${PHP_MODS_DIR}/blackfire.ini ${PHP_CLI_CONF_DIR}/20-devstack.ini && \
     ln -s ${PHP_MODS_DIR}/blackfire.ini ${PHP_CGI_CONF_DIR}/20-devstack.ini && \
