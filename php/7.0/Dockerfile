@@ -91,5 +91,8 @@ RUN apt-get update && apt-get dist-upgrade -y && \
 # FILES
 ADD conf.d/devstack.ini ${PHP_MODS_DIR}/devstack.ini
 
+# WORKDIR
+WORKDIR /srv
+
 # COMMAND
 CMD ["php"]

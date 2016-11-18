@@ -94,5 +94,8 @@ RUN apt-get update && apt-get dist-upgrade -y && \
 ADD conf.d/devstack.ini ${PHP_MODS_DIR}/devstack.ini
 ADD fpm/php-fpm.conf ${PHP_FPM_DIR}/php-fpm.conf
 
+# WORKDIR
+WORKDIR /srv
+
 # COMMAND
 CMD ["php5-fpm", "-F"]
