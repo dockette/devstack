@@ -1,4 +1,4 @@
-FROM dockette/debian:jessie
+FROM dockette/jessie
 
 MAINTAINER Milan Sulc <sulcmil@gmail.com>
 
