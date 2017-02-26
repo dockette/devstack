@@ -19,26 +19,48 @@ services:
   php56:
     image: dockette/devstack:php56-fpm
 
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
+
     volumes_from:
       - data
+      - userdirs
 
     links:
-      - mariadb:db
+      - mariadb:mysql
+      - postgresql:postgresql
 
   php7:
     image: dockette/devstack:php7-fpm
 
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
+
     volumes_from:
       - data
+      - userdirs
 
     links:
-      - mariadb:db
+      - mariadb:mysql
+      - postgresql:postgresql
 
   nodejs:
     image: dockette/devstack:nodejs
 
+    # Keep this service alive
+    tty: true
+    stdin_open: true
+
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
+
     volumes_from:
       - data
+      - userdirs
+
+    links:
+      - mariadb:mysql
+      - postgresql:postgresql
 
   mariadb:
     image: mariadb:10.1
@@ -49,17 +71,41 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
 
+  adminer:
+    image: dockette/adminer
+    ports:
+      - 8000
+
+    links:
+      - mariadb:mysql
+      - postgresql:postgresql
+
+  postgresql:
+    image: postgres:9.6
+
+    ports: 
+      - 5432:5432
+
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+    environment:
+      - POSTGRES_PASSWORD=root
+
   data:
     image: busybox
 
     volumes:
-       - ~/:/srv
+      # Data homeland
+       - ~/projects:/srv
 
   userdirs:
     image: busybox
 
     volumes:
+      # It's root's home folder. You can store here .npm, .composer cache etc.
       - ./data/root-dir:/root
+      # It's root's home folder. You can store here .npm, .composer cache etc.
       - ./data/dfx-dir:/home/dfx
 
 networks:
@@ -68,5 +114,6 @@ networks:
     ipam:
       driver: default
       config:
+      # This is useful for PHP xdebug debugging
       - subnet: 172.10.10.0/24
         gateway: 172.10.10.1
