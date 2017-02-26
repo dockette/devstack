@@ -3,27 +3,32 @@
 [![Docker Stars](https://img.shields.io/docker/stars/dockette/devstack.svg?style=flat)](https://hub.docker.com/r/dockette/devstack/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/dockette/devstack.svg?style=flat)](https://hub.docker.com/r/dockette/devstack/)
 
-Great LAMP devstack for you home programming.
+Great LAMP devstack based on **Docker** & **Docker Compose** for you home programming.
 
 ## LAMP
 
 - Apache 2.4.x
-- PHP 7.0.x + Composer + PHPMailer
-- PHP 5.6.x + Composer + PHPMailer
+- PHP 7.1 + Composer + PHPMailer
+- PHP 5.6 + Composer + PHPMailer
 - NodeJS 6.7.x + NPM 3.10.x
 - MariaDB 10.1.x
+- Adminer 4.2.5
 
-### Install
+## Install
 
-1. Download devstack bin script.
+1. Download devstack binary script.
 
     ```
     wget https://raw.githubusercontent.com/dockette/devstack/master/devstack
     ```
 
-2. Change variable `COMPOSE` to follow your `docker-compose.yml`.
+2. Setup devstack variables in your `.profile` or `.bashrc`.
+	
+	- `DEVSTACK_DOCKER=~/.devstack/docker-compose.yaml` (docker compose file)
+	- `DEVSTACK_PREFIX=devstack` (container's prefix)
+	- `DEVSTACK_USER=dfx` (attached user in container) [you can leave it]
 
-3. Make executable
+3. Make `devstack` manage script executable.
 
     ```sh
     chmod +x devstack
@@ -35,31 +40,40 @@ Great LAMP devstack for you home programming.
     ln -s ~/devstack /usr/local/bin/devstack
     ```
 
-### docker-compose.yml
+## Configuration
 
-Prepared config file. You can download it here.
+### `docker-compose.yml`
+
+I have prepared docker configuration file for you. You can [download it here](https://github.com/dockette/devstack/blob/master/docker-compose.yml).
 
 ```
 wget https://raw.githubusercontent.com/dockette/devstack/master/docker-compose.yml
 ```
 
+If you didn't changed `DEVSTACK_DOCKER` varible, you should place your `docker-compose.yml` file to your user's folder `~/.devstack/docker-compose.yml`.
+
+After you've followed install section, your devstack should be prepared. One thing left, you have to configure your devstack. 
+
+You should: 
+ - setup your [**data homeland**](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L61)
+ - setup mysql [**root password**](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L50)
+
 ### Userdirs
 
-There are two kind of users inside containers.
+There are two kind of users inside these containers, **root** (main unix user) and **dfx** (special user with uid 1000 in all `dockette` based images).
 
-**Root** and **dfx** (uid 1000).
+You can find it in [docker-compose.yml file in section/container](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L64).
 
-In the docker-compose.yml is a section/container **userdirs**. On the startup, your users dir
-are attached to php7, php56, nodejs containers. You should create your .bash_profile, .bashrc files 
-for easy-to-use, for example bash completion.
+On the containers startup, your `users dir` are attached to `php7`, `php56`, `nodejs` containers. You could create your own `.bash_profile`, `.bashrc` files 
+for easier manipulation inside docker containers.
 
-You can copy skeleton.
+There used to be a skeleton in ubuntu/debian/mint system. 
 
 ```sh
 cp /etc/skel/.bashrc <path-to-dfx-userdir>/.bashrc
 ```
 
-### Hosts
+## Hosts
 
 By default is devstack available on domains:
 
@@ -75,11 +89,11 @@ You should add these lines to your `/etc/hosts` file.
 
 ```
 127.0.0.1 local.dev
-127.0.0.1	www.local.dev
+127.0.0.1 www.local.dev
 127.0.0.1 local.dev7
-127.0.0.1	www.local.dev7
+127.0.0.1 www.local.dev7
 127.0.0.1 local.dev5
-127.0.0.1	www.local.dev5
+127.0.0.1 www.local.dev5
 ```
 
 -----
