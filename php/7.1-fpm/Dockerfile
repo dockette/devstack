@@ -29,7 +29,7 @@ ENV BLACKFIRE_VERSION=1.9.1
 # INSTALLATION
 RUN apt-get update && apt-get dist-upgrade -y && \
     # DEPENDENCIES #############################################################
-    apt-get install -y wget curl git bash-completion && \
+    apt-get install -y wget curl git bash-completion apt-transport-https ca-certificates && \
     # COMPLETION ###############################################################
     cp /etc/skel/.bashrc ~/ && \
     cp /etc/skel/.bashrc /home/dfx/ && chown dfx:dfx -R /home/dfx/ && \
