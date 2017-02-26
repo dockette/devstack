@@ -6,10 +6,10 @@ MAINTAINER Milan Sulc <sulcmil@gmail.com>
 ENV SSH_AUTH_SOCK=/ssh-agent
 
 # PHP
-ENV PHP_MODS_DIR=/etc/php/7.0/mods-available
-ENV PHP_CLI_DIR=/etc/php/7.0/cli/
+ENV PHP_MODS_DIR=/etc/php/7.1/mods-available
+ENV PHP_CLI_DIR=/etc/php/7.1/cli/
 ENV PHP_CLI_CONF_DIR=${PHP_CLI_DIR}/conf.d
-ENV PHP_CGI_DIR=/etc/php/7.0/cgi/
+ENV PHP_CGI_DIR=/etc/php/7.1/cgi/
 ENV PHP_CGI_CONF_DIR=${PHP_CGI_DIR}/conf.d
 
 # XDEBUG
@@ -33,38 +33,37 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     cp /etc/skel/.bashrc /home/dfx/ && chown dfx:dfx -R /home/dfx/ && \
     # SSH ######################################################################
     echo "    IdentityFile ~/.ssh/id_rsa" >> /etc/ssh/ssh_config && \
-    # PHP DOTDEB ###############################################################
-    echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list.d/dotdeb.list && \
-    echo 'deb-src http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list.d/dotdeb.list && \
-    wget http://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg && rm dotdeb.gpg && \
+    # PHP DEB.SURY.CZ ##########################################################
+    wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg && \
+    echo "deb https://packages.sury.org/php/ jessie main" > /etc/apt/sources.list.d/php.list && \
     apt-get update && \
-    apt-get install -y \
-        php7.0-apc \
-        php7.0-apcu \
-        php7.0-bz2 \
-        php7.0-cli \
-        php7.0-cgi \
-        php7.0-curl \
-        php7.0-geoip \
-        php7.0-gd \
-        php7.0-intl \
-        php7.0-imagick \
-        php7.0-imap \
-        php7.0-ldap \
-        php7.0-mbstring \
-        php7.0-mcrypt \
-        php7.0-memcached \
-        php7.0-mongo \
-        php7.0-mysql \
-        php7.0-pgsql \
-        php7.0-redis \
-        php7.0-soap \
-        php7.0-sqlite \
-        php7.0-ssh2 \
-        php7.0-zip \
-        php7.0-xmlrpc \
-        php7.0-xsl \
-        php7.0-xdebug && \
+    apt-get install -y --no-install-recommends \
+        php7.1-apc \
+        php7.1-apcu \
+        php7.1-bz2 \
+        php7.1-cli \
+        php7.1-cgi \
+        php7.1-curl \
+        php7.1-geoip \
+        php7.1-gd \
+        php7.1-intl \
+        php7.1-imagick \
+        php7.1-imap \
+        php7.1-ldap \
+        php7.1-mbstring \
+        php7.1-mcrypt \
+        php7.1-memcached \
+        php7.1-mongo \
+        php7.1-mysql \
+        php7.1-pgsql \
+        php7.1-redis \
+        php7.1-soap \
+        php7.1-sqlite \
+        php7.1-ssh2 \
+        php7.1-zip \
+        php7.1-xmlrpc \
+        php7.1-xsl \
+        php7.1-xdebug && \
     # PHPMAILER ################################################################
     curl -o ${PHPMAILER_BIN} https://raw.githubusercontent.com/dockette/phpmailer/master/phpmailer && \
     mkdir -p ${PHPMAILER_PATH} && \
