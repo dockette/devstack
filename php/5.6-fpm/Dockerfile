@@ -35,12 +35,11 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     cp /etc/skel/.bashrc /home/dfx/ && chown dfx:dfx -R /home/dfx/ && \
     # SSH ######################################################################
     echo "    IdentityFile ~/.ssh/id_rsa" >> /etc/ssh/ssh_config && \
-    # PHP DOTDEB ###############################################################
-    echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list.d/dotdeb.list && \
-    echo 'deb-src http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list.d/dotdeb.list && \
-    wget http://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg && rm dotdeb.gpg && \
+    # PHP DEB.SURY.CZ ##########################################################
+    wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg && \
+    echo "deb https://packages.sury.org/php/ jessie main" > /etc/apt/sources.list.d/php.list && \
     apt-get update && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
         php5-apcu \
         php5-cli \
         php5-cgi \
@@ -58,7 +57,6 @@ RUN apt-get update && apt-get dist-upgrade -y && \
         php5-mysql \
         php5-pgsql \
         php5-redis \
-        php5-soap \
         php5-sqlite \
         php5-ssh2 \
         php5-xmlrpc \
