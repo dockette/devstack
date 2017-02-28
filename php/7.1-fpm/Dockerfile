@@ -24,7 +24,8 @@ ENV PHPMAILER_PATH=/srv/mails
 
 # DEBUGGING
 ENV BLACKFIRE_AGENT=tcp://blackfire:8707
-ENV BLACKFIRE_VERSION=1.9.1
+ENV BLACKFIRE_CLI=1.9.4
+ENV BLACKFIRE_PROBE=1.15.0
 
 # INSTALLATION
 RUN apt-get update && apt-get dist-upgrade -y && \
@@ -78,10 +79,10 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     composer global require bamarni/symfony-console-autocomplete && \
     ~/.composer/vendor/bin/symfony-autocomplete --shell bash composer | tee /etc/bash_completion.d/composer && \
     # BLACKFIRE ################################################################
-    curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/70 && \
-    tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp && mv /tmp/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so && \
+    curl -A "Docker" -o /tmp/blackfire.so -D - -L -s https://packages.blackfire.io/binaries/blackfire-php/${BLACKFIRE_PROBE}/blackfire-php-linux_amd64-php-71.so && \
+    mv /tmp/blackfire.so $(php -r "echo ini_get('extension_dir');")/blackfire.so && \
     printf "extension=blackfire.so\nblackfire.agent_socket=${BLACKFIRE_AGENT}\n" > ${PHP_MODS_DIR}/blackfire.ini && \
-    curl -A "Docker" -o /usr/local/bin/blackfire -D - -L -s https://packages.blackfire.io/binaries/blackfire-agent/${BLACKFIRE_VERSION}/blackfire-cli-linux_static_amd64 && \
+    curl -A "Docker" -o /usr/local/bin/blackfire -D - -L -s https://packages.blackfire.io/binaries/blackfire-agent/${BLACKFIRE_CLI}/blackfire-cli-linux_static_amd64 && \
     chmod +x /usr/local/bin/blackfire && \
     # PHP MOD(s) ###############################################################
     ln -s ${PHP_MODS_DIR}/blackfire.ini ${PHP_CLI_CONF_DIR}/20-devstack.ini && \
