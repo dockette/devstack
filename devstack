@@ -58,6 +58,10 @@ reup() {
     up
 }
 
+restart() {
+    call up -d --force-recreate $@
+}
+
 stop() {
     call stop
 }
@@ -103,11 +107,11 @@ case "$1" in
         exit 0
         ;;
     r|restart)
-        stop && up
+        restart
         exit 0
         ;;
     rl|restart-logs)
-        stop && up && logs
+        restart && logs
         exit 0
         ;;
     b|build)
