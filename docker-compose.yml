@@ -69,6 +69,7 @@ services:
       - ./data/mariadb:/var/lib/mysql
 
     environment:
+      # Change in your devstack!
       - MYSQL_ROOT_PASSWORD=root
 
   adminer:
@@ -90,6 +91,7 @@ services:
       - ./data/postgres:/var/lib/postgresql/data
 
     environment:
+      # Change in your devstack!
       - POSTGRES_PASSWORD=root
 
   data:
@@ -103,9 +105,11 @@ services:
     image: busybox
 
     volumes:
-      # It's root's home folder. You can store here .npm, .composer cache etc.
+      # It's root's home folder. 
+      # You can store here .npm, .composer cache etc.
       - ./data/root-dir:/root
-      # It's root's home folder. You can store here .npm, .composer cache etc.
+      # It's dfx's home folder. 
+      # You can store here .npm, .composer cache etc.
       - ./data/dfx-dir:/home/dfx
 
 networks:
