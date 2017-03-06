@@ -6,10 +6,10 @@ MAINTAINER Milan Sulc <sulcmil@gmail.com>
 ENV SSH_AUTH_SOCK=/ssh-agent
 
 # PHP
-ENV PHP_MODS_DIR=/etc/php5/mods-available
-ENV PHP_CLI_DIR=/etc/php5/cli/
+ENV PHP_MODS_DIR=/etc/php5.6/mods-available
+ENV PHP_CLI_DIR=/etc/php5.6/cli/
 ENV PHP_CLI_CONF_DIR=${PHP_CLI_DIR}/conf.d
-ENV PHP_CGI_DIR=/etc/php5/cgi/
+ENV PHP_CGI_DIR=/etc/php5.6/cgi/
 ENV PHP_CGI_CONF_DIR=${PHP_CGI_DIR}/conf.d
 
 # XDEBUG
