@@ -41,28 +41,28 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     echo "deb https://packages.sury.org/php/ jessie main" > /etc/apt/sources.list.d/php.list && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-        php5-apcu \
-        php5-cli \
-        php5-cgi \
-        php5-curl \
-        php5-fpm \
-        php5-geoip \
-        php5-gd \
-        php5-intl \
-        php5-imagick \
-        php5-imap \
-        php5-ldap \
-        php5-mcrypt \
-        php5-memcached \
-        php5-mongo \
-        php5-mysql \
-        php5-pgsql \
-        php5-redis \
-        php5-sqlite3 \
-        php5-ssh2 \
-        php5-xmlrpc \
-        php5-xsl \
-        php5-xdebug && \
+        php5.6-apcu \
+        php5.6-cli \
+        php5.6-cgi \
+        php5.6-curl \
+        php5.6-fpm \
+        php5.6-geoip \
+        php5.6-gd \
+        php5.6-intl \
+        php5.6-imagick \
+        php5.6-imap \
+        php5.6-ldap \
+        php5.6-mcrypt \
+        php5.6-memcached \
+        php5.6-mongo \
+        php5.6-mysql \
+        php5.6-pgsql \
+        php5.6-redis \
+        php5.6-sqlite3 \
+        php5.6-ssh2 \
+        php5.6-xmlrpc \
+        php5.6-xsl \
+        php5.6-xdebug && \
     # PHPMAILER ################################################################
     curl -o ${PHPMAILER_BIN} https://raw.githubusercontent.com/dockette/phpmailer/master/phpmailer && \
     mkdir -p ${PHPMAILER_PATH} && \
