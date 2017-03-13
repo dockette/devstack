@@ -98,4 +98,4 @@ ADD fpm/php-fpm.conf ${PHP_FPM_DIR}/php-fpm.conf
 WORKDIR /srv
 
 # COMMAND
-CMD ["php5.6-fpm", "-F"]
+CMD ["php-fpm5.6", "-F"]
