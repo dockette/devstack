@@ -40,6 +40,7 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
         php5.6-apcu \
+        php5.6-bcmath \
         php5.6-cli \
         php5.6-cgi \
         php5.6-curl \
