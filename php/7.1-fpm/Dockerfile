@@ -28,9 +28,9 @@ ENV BLACKFIRE_CLI=1.9.4
 ENV BLACKFIRE_PROBE=1.15.0
 
 # INSTALLATION
-RUN apt-get update && apt-get dist-upgrade -y && \
+RUN apt update && apt dist-upgrade -y && \
     # DEPENDENCIES #############################################################
-    apt-get install -y wget curl git bash-completion apt-transport-https ca-certificates && \
+    apt install -y wget curl git bash-completion apt-transport-https ca-certificates && \
     # COMPLETION ###############################################################
     cp /etc/skel/.bashrc ~/ && \
     cp /etc/skel/.bashrc /home/dfx/ && chown dfx:dfx -R /home/dfx/ && \
@@ -39,8 +39,8 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     # PHP DEB.SURY.CZ ##########################################################
     wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg && \
     echo "deb https://packages.sury.org/php/ jessie main" > /etc/apt/sources.list.d/php.list && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends \
+    apt update && \
+    apt install -y --no-install-recommends \
         php7.1-apc \
         php7.1-apcu \
         php7.1-bcmath \
@@ -93,7 +93,7 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     ln -s ${PHP_MODS_DIR}/devstack.ini ${PHP_CGI_CONF_DIR}/999-devstack.ini && \
     ln -s ${PHP_MODS_DIR}/devstack.ini ${PHP_FPM_CONF_DIR}/999-devstack.ini && \
     # CLEAN UP #################################################################
-    apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
+    apt clean -y && apt autoclean -y && apt autoremove -y && \
     rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
 
 # FILES
