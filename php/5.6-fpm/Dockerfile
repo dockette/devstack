@@ -24,8 +24,8 @@ ENV PHPMAILER_PATH=/srv/mails
 
 # DEBUGGING
 ENV BLACKFIRE_AGENT=tcp://blackfire:8707
-ENV BLACKFIRE_CLI=1.9.4
-ENV BLACKFIRE_PROBE=1.15.0
+ENV BLACKFIRE_CLI=1.11.2
+ENV BLACKFIRE_PROBE=1.16.2
 
 # INSTALLATION
 RUN apt update && apt dist-upgrade -y && \
@@ -88,7 +88,7 @@ RUN apt update && apt dist-upgrade -y && \
     ln -s ${PHP_MODS_DIR}/devstack.ini ${PHP_CGI_CONF_DIR}/999-devstack.ini && \
     ln -s ${PHP_MODS_DIR}/devstack.ini ${PHP_FPM_CONF_DIR}/999-devstack.ini && \
     # CLEAN UP #################################################################
-    apt clean -y && apt autoclean -y && apt autoremove -y && \
+    apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
 
 # FILES
