@@ -12,7 +12,6 @@ RUN apt-get update && apt-get update -y && \
     apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
 
-VOLUME /srv
 WORKDIR /srv
 
 CMD /bin/bash

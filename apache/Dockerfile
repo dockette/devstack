@@ -23,7 +23,6 @@ ADD sites/local-dev7.conf /etc/apache2/sites-enabled/local-dev7.conf
 ADD sites/local-dev56.conf /etc/apache2/sites-enabled/local-dev56.conf
 ADD conf/devstack.conf /etc/apache2/conf-enabled/999-devstack.conf
 
-VOLUME /srv
 WORKDIR /srv
 
 EXPOSE 80
