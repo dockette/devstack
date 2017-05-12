@@ -125,8 +125,8 @@ You should add these lines to your `/etc/hosts` file.
 127.0.0.1 www.local.dev
 127.0.0.1 local.dev7
 127.0.0.1 www.local.dev7
-127.0.0.1 local.dev5
-127.0.0.1 www.local.dev5
+127.0.0.1 local.dev56
+127.0.0.1 www.local.dev56
 ```
 
 -----
