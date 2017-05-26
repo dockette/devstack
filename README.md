@@ -1,6 +1,6 @@
 # DevStack
 
-Great LAMP devstack based on **Docker** & **Docker Compose** for you home programming.
+Great LAMP devstack based on **Docker** & **Docker Compose** for your home programming.
 
 [![Docker Stars](https://img.shields.io/docker/stars/dockette/devstack.svg?style=flat)](https://hub.docker.com/r/dockette/devstack/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/dockette/devstack.svg?style=flat)](https://hub.docker.com/r/dockette/devstack/)
@@ -29,19 +29,19 @@ Great LAMP devstack based on **Docker** & **Docker Compose** for you home progra
 
 2. Setup devstack variables in your `.profile` or `.bashrc`.
 	
-    > This values are by dafault!
+    > These values are default!
 
 	- `DEVSTACK_DOCKER=~/.devstack/docker-compose.yaml` (docker compose file)
 	- `DEVSTACK_PREFIX=devstack` (container's prefix)
 	- `DEVSTACK_USER=dfx` (attached user in container) [you can leave it]
 
-3. Make `devstack` manage script executable.
+3. Make `devstack` managing script executable.
 
     ```sh
     chmod +x devstack
     ```
 
-4. Make symlink to `/usr/local/bin/devstack` or to other bin path.
+4. Create symlink to `/usr/local/bin/devstack` or to other bin path.
 
     ```sh
     ln -s ~/devstack /usr/local/bin/devstack
@@ -84,7 +84,7 @@ There are two kind of users inside these containers, **root** (main unix user) a
 
 You can find it in docker-compose.yml [file in section/container](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L107-L113).
 
-On the containers startup, your `users dir` are attached to `php7`, `php56`, `nodejs` containers. You could create your own `.bash_profile`, `.bashrc` files 
+On the containers startup, your `users dir` are attached to `php7`, `php56`, `nodejs` containers. You can create your own `.bash_profile`, `.bashrc` files 
 for easier manipulation inside docker containers.
 
 [**TIP**] There used to be a skeleton in ubuntu/debian/mint system. 
@@ -95,7 +95,7 @@ cp /etc/skel/.bashrc <path-to-dfx-userdir>/.bashrc
 
 ### PHP
 
-PHP container provide a few environment variables you can override: 
+PHP container provides a few environment variables you can override: 
 
 #### `xdebug`
 
@@ -106,7 +106,7 @@ PHP container provide a few environment variables you can override:
 
 #### `phpmailer`
 
-Phpmailer store all mails send via `mail()` function to `/srv/mail` folder by default. You can change it.
+Phpmailer stores all mails send via `mail()` function to `/srv/mail` folder by default. You can change it.
 
 | Key               | Value      |
 |-------------------|------------|
@@ -116,7 +116,7 @@ Phpmailer store all mails send via `mail()` function to `/srv/mail` folder by de
 
 MariaDB's default root password is `root`. You should change it.
 
-You have to setup in you application/configs propel `host` which is `mariadb`. 
+You have to setup in you application/configs proper `host` which is `mariadb`. 
 
 MariaDB container has predefined IP address `172.10.10.20`.
 
@@ -128,7 +128,7 @@ MariaDB container has predefined IP address `172.10.10.20`.
 
 PostgreSQL's default root password is `root`. You should change it.
 
-You have to setup in you application/configs propel `host` which is `postgresql`. 
+You have to setup in you application/configs proper `host` which is `postgresql`. 
 
 PostgreSQL container has predefined IP address `172.10.10.21`. You could update your `/etc/hosts`.
 
