@@ -4,6 +4,10 @@ services:
   apache:
     image: dockette/devstack:apache
 
+    networks:
+      default:
+        ipv4_address: 172.10.10.5
+
     volumes_from:
       - data
 
@@ -16,8 +20,12 @@ services:
       - php7:php7
       - php56:php56
 
-  php56:
-    image: dockette/devstack:php56-fpm
+  php7:
+    image: dockette/devstack:php71-fpm
+
+    networks:
+      default:
+        ipv4_address: 172.10.10.10
 
     environment:
       - SSH_AUTH_SOCK=/ssh-agent
@@ -30,8 +38,12 @@ services:
       - mariadb:mysql
       - postgresql:postgresql
 
-  php7:
-    image: dockette/devstack:php7-fpm
+  php56:
+    image: dockette/devstack:php56-fpm
+
+    networks:
+      default:
+        ipv4_address: 172.10.10.11
 
     environment:
       - SSH_AUTH_SOCK=/ssh-agent
@@ -46,6 +58,10 @@ services:
 
   nodejs:
     image: dockette/devstack:nodejs
+
+    networks:
+      default:
+        ipv4_address: 172.10.10.12
 
     # Keep this service alive
     tty: true
@@ -62,8 +78,29 @@ services:
       - mariadb:mysql
       - postgresql:postgresql
 
+  adminer:
+    image: dockette/adminer:dg
+
+    networks:
+      default:
+        ipv4_address: 172.10.10.13
+
+    ports:
+      - 8000
+
+    links:
+      - mariadb:mysql
+      - postgresql:postgresql
+
   mariadb:
     image: mariadb:10.1
+
+    networks:
+      default:
+        ipv4_address: 172.10.10.20
+
+    ports: 
+      - 3306:3306
 
     volumes:
       - ./data/mariadb:/var/lib/mysql
@@ -72,17 +109,12 @@ services:
       # Change in your devstack!
       - MYSQL_ROOT_PASSWORD=root
 
-  adminer:
-    image: dockette/adminer
-    ports:
-      - 8000
-
-    links:
-      - mariadb:mysql
-      - postgresql:postgresql
-
   postgresql:
     image: postgres:9.6
+
+    networks:
+      default:
+        ipv4_address: 172.10.10.21
 
     ports: 
       - 5432:5432
