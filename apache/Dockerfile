@@ -17,10 +17,7 @@ RUN apt-get update && apt-get update -y && \
     apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
 
-ADD sites/localhost.conf /etc/apache2/sites-enabled/localhost.conf
-ADD sites/local-dev.conf /etc/apache2/sites-enabled/local-dev.conf
-ADD sites/local-dev7.conf /etc/apache2/sites-enabled/local-dev7.conf
-ADD sites/local-dev56.conf /etc/apache2/sites-enabled/local-dev56.conf
+ADD sites /etc/apache2/sites-enabled
 ADD conf/devstack.conf /etc/apache2/conf-enabled/999-devstack.conf
 
 WORKDIR /srv
