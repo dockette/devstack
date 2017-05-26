@@ -4,7 +4,7 @@
 DEVSTACK_PREFIX=${DEVSTACK_PREFIX:-devstack}
 DEVSTACK_DOCKER=${DEVSTACK_DOCKER:-~/.devstack/docker-compose.yml}
 DEVSTACK_USER=${DEVSTACK_USER:-dfx}
-DEVSTACK_VERSION=1.2
+DEVSTACK_VERSION=1.3
 
 # Functions
 usage() {
@@ -32,6 +32,7 @@ Commands:
       ru | reup                 Build & Start
       d | destroy               Destroy services
       ps | list                 List services in devstack
+      u | upgrade               Upgrade devstack images
 
   Services:
       rb | rebuild [service]            Rebuild service
@@ -96,6 +97,11 @@ gou() {
     call exec $1 su "$DEVSTACK_USER"
 }
 
+upgrade() {
+    docker rmi --force $(docker images --filter=reference='dockette/devstack:*' -q)
+    call pull
+}
+
 # Main switch
 case "$1" in
     s|up|start)
@@ -149,6 +155,10 @@ case "$1" in
         ;;
     gu|gou)
         gou $2
+        exit 0
+        ;;
+    u|upgrade)
+        upgrade
         exit 0
         ;;
     *)
