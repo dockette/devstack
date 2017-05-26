@@ -12,12 +12,12 @@ Great LAMP devstack based on **Docker** & **Docker Compose** for you home progra
 ## LAMP
 
 - Apache 2.4.x
-- PHP 7.1 + Composer + PHPMailer
-- PHP 5.6 + Composer + PHPMailer
-- NodeJS 6.7.x + NPM 3.10.x
+- PHP 7.1.x + Composer + PHPMailer
+- PHP 5.6.x + Composer + PHPMailer
+- NodeJS 7.x + NPM 4.x
 - MariaDB 10.1
 - PostgreSQL 9.6
-- Adminer 4.2.5
+- Adminer 4.3.x
 
 ## Install
 
@@ -29,6 +29,8 @@ Great LAMP devstack based on **Docker** & **Docker Compose** for you home progra
 
 2. Setup devstack variables in your `.profile` or `.bashrc`.
 	
+    > This values are by dafault!
+
 	- `DEVSTACK_DOCKER=~/.devstack/docker-compose.yaml` (docker compose file)
 	- `DEVSTACK_PREFIX=devstack` (container's prefix)
 	- `DEVSTACK_USER=dfx` (attached user in container) [you can leave it]
@@ -46,6 +48,18 @@ Great LAMP devstack based on **Docker** & **Docker Compose** for you home progra
     ```
 
 ## Configuration
+
+### Ports
+
+| Container     | Ports    | IP           |
+|---------------|----------|--------------|
+| Apache        | 80 / 443 | 172.10.10.5  |
+| PHP 7.1 + FPM |          | 172.10.10.10 |
+| PHP 5.6 + FPM |          | 172.10.10.11 |
+| NodeJS        |          | 172.10.10.12 |
+| Adminer       | 8000     | 172.10.10.13 |
+| MariaDB       | 3306     | 172.10.10.20 |
+| PostgreSQL    | 5432     | 172.10.10.21 |
 
 ### Docker Compose (`docker-compose.yml`)
 
@@ -102,9 +116,31 @@ Phpmailer store all mails send via `mail()` function to `/srv/mail` folder by de
 
 MariaDB's default root password is `root`. You should change it.
 
+You have to setup in you application/configs propel `host` which is `mariadb`. 
+
+MariaDB container has predefined IP address `172.10.10.20`.
+
+```
+172.10.10.20 mariadb
+```
+
 ### PostgreSQL
 
 PostgreSQL's default root password is `root`. You should change it.
+
+You have to setup in you application/configs propel `host` which is `postgresql`. 
+
+PostgreSQL container has predefined IP address `172.10.10.21`. You could update your `/etc/hosts`.
+
+```
+172.10.10.21 postgresql
+```
+
+### Adminer
+
+Adminer is great tool for managing database. Dockette devstack runs `Adminer` on port `8000`.
+
+See more on documentation at https://github.com/dockette/adminer.
 
 ## Hosts
 
@@ -121,12 +157,27 @@ By default is devstack available on domains:
 You should add these lines to your `/etc/hosts` file.
 
 ```
+# Devstack [webserver]
 127.0.0.1 local.dev
 127.0.0.1 www.local.dev
 127.0.0.1 local.dev7
 127.0.0.1 www.local.dev7
 127.0.0.1 local.dev56
 127.0.0.1 www.local.dev56
+
+# Devstack [DB]
+172.10.10.20 mariadb
+172.10.10.21 postgresql
+```
+
+Give a try!
+
+```
+ping local.dev
+ping local.dev56
+ping local.dev7
+ping mariadb
+ping postgresql
 ```
 
 -----
