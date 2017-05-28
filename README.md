@@ -74,15 +74,15 @@ If you didn't change the `DEVSTACK_DOCKER` variable, you should place your `dock
 After you've followed install section, your devstack should be well prepared. One thing left, you should configure your devstack (passwords, folders, etc). 
 
 You should: 
- - setup your [**data homeland**](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L100-L102)
- - setup MySQL [**root password**](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L71-L73)
- - setup PostgreSQL [**root password**](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L93-L95)
+ - setup your [**data homeland**](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L132-L134)
+ - setup MySQL [**root password**](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L108-L110)
+ - setup PostgreSQL [**root password**](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L125-L127)
 
 ### Userdirs
 
 There are two kind of users inside these containers, **root** (main unix user) and **dfx** (special user with uid 1000 in all `dockette` based images).
 
-You can find it in docker-compose.yml [file in section/container](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L107-L113).
+You can find it in docker-compose.yml [file in section/container](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L139-L147).
 
 On the containers startup, your `users dir` are attached to `php7`, `php56`, `nodejs` containers. You can create your own `.bash_profile`, `.bashrc` files 
 for easier manipulation inside docker containers.
