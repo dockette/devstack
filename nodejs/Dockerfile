@@ -4,7 +4,7 @@ MAINTAINER Milan Sulc <sulcmil@gmail.com>
 
 RUN apt-get update && apt-get update -y && \
     apt-get install -y wget curl git bash-completion && \
-    curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     apt-get install -y nodejs && \
     npm completion >> /etc/bash_completion.d/npm && \
     npm install -g gulp bower grunt && \
