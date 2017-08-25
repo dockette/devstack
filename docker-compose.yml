@@ -36,7 +36,8 @@ services:
 
     links:
       - mariadb:mysql
-      - postgresql:postgresql
+      # - postgresql:postgresql
+      - blackfire:blackfire
 
   # php56:
   #   image: dockette/devstack:php56-fpm
@@ -55,6 +56,7 @@ services:
   #   links:
   #     - mariadb:mysql
   #     - postgresql:postgresql
+  #     - blackfire:blackfire
 
   # nodejs:
   #   image: dockette/devstack:nodejs
@@ -77,6 +79,13 @@ services:
   #   links:
   #     - mariadb:mysql
   #     - postgresql:postgresql
+
+  # blackfire:
+  #   image: blackfire/blackfire
+
+  #   environment:
+  #     - BLACKFIRE_SERVER_ID=<fill-me>
+  #     - BLACKFIRE_SERVER_TOKEN=<fill-me>
 
   adminer:
     image: dockette/adminer:dg
