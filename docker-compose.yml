@@ -38,45 +38,45 @@ services:
       - mariadb:mysql
       - postgresql:postgresql
 
-  php56:
-    image: dockette/devstack:php56-fpm
+  # php56:
+  #   image: dockette/devstack:php56-fpm
 
-    networks:
-      default:
-        ipv4_address: 172.10.10.11
+  #   networks:
+  #     default:
+  #       ipv4_address: 172.10.10.11
 
-    environment:
-      - SSH_AUTH_SOCK=/ssh-agent
+  #   environment:
+  #     - SSH_AUTH_SOCK=/ssh-agent
 
-    volumes_from:
-      - data
-      - userdirs
+  #   volumes_from:
+  #     - data
+  #     - userdirs
 
-    links:
-      - mariadb:mysql
-      - postgresql:postgresql
+  #   links:
+  #     - mariadb:mysql
+  #     - postgresql:postgresql
 
-  nodejs:
-    image: dockette/devstack:nodejs
+  # nodejs:
+  #   image: dockette/devstack:nodejs
 
-    networks:
-      default:
-        ipv4_address: 172.10.10.12
+  #   networks:
+  #     default:
+  #       ipv4_address: 172.10.10.12
 
-    # Keep this service alive
-    tty: true
-    stdin_open: true
+  #   # Keep this service alive
+  #   tty: true
+  #   stdin_open: true
 
-    environment:
-      - SSH_AUTH_SOCK=/ssh-agent
+  #   environment:
+  #     - SSH_AUTH_SOCK=/ssh-agent
 
-    volumes_from:
-      - data
-      - userdirs
+  #   volumes_from:
+  #     - data
+  #     - userdirs
 
-    links:
-      - mariadb:mysql
-      - postgresql:postgresql
+  #   links:
+  #     - mariadb:mysql
+  #     - postgresql:postgresql
 
   adminer:
     image: dockette/adminer:dg
@@ -90,7 +90,7 @@ services:
 
     links:
       - mariadb:mysql
-      - postgresql:postgresql
+      # - postgresql:postgresql
 
   mariadb:
     image: mariadb:10.1
@@ -109,22 +109,22 @@ services:
       # Change in your devstack!
       - MYSQL_ROOT_PASSWORD=root
 
-  postgresql:
-    image: postgres:9.6
+  # postgresql:
+  #   image: postgres:9.6
 
-    networks:
-      default:
-        ipv4_address: 172.10.10.21
+  #   networks:
+  #     default:
+  #       ipv4_address: 172.10.10.21
 
-    ports: 
-      - 5432:5432
+  #   ports: 
+  #     - 5432:5432
 
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+  #   volumes:
+  #     - ./data/postgres:/var/lib/postgresql/data
 
-    environment:
-      # Change in your devstack!
-      - POSTGRES_PASSWORD=root
+  #   environment:
+  #     # Change in your devstack!
+  #     - POSTGRES_PASSWORD=root
 
   data:
     image: busybox
