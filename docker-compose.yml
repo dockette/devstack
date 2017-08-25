@@ -18,7 +18,7 @@ services:
     links:
       - php7:php
       - php7:php7
-      - php56:php56
+      # - php56:php56
 
   php7:
     image: dockette/devstack:php71-fpm
@@ -37,7 +37,7 @@ services:
     links:
       - mariadb:mysql
       # - postgresql:postgresql
-      - blackfire:blackfire
+      # - blackfire:blackfire
 
   # php56:
   #   image: dockette/devstack:php56-fpm
