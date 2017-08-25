@@ -14,7 +14,7 @@ Great LAMP devstack based on **Docker** & **Docker Compose** for your home progr
 - Apache 2.4.x
 - PHP 7.1.x + Composer + PHPMailer
 - PHP 5.6.x + Composer + PHPMailer
-- NodeJS 7.x + NPM 4.x
+- NodeJS 8.x + NPM 5.x
 - MariaDB 10.1
 - PostgreSQL 9.6
 - Adminer 4.3.x
@@ -25,6 +25,7 @@ Great LAMP devstack based on **Docker** & **Docker Compose** for your home progr
 
     ```
     wget https://raw.githubusercontent.com/dockette/devstack/master/devstack
+    wget https://raw.githubusercontent.com/dockette/devstack/master/docker-compose.yml
     ```
 
 2. Setup devstack variables in your `.profile` or `.bashrc`.
