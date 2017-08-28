@@ -95,7 +95,7 @@ services:
         ipv4_address: 172.10.10.13
 
     ports:
-      - 8000
+      - 8000:80
 
     links:
       - mariadb:mysql
