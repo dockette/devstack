@@ -16,12 +16,12 @@ services:
       - 443:443
 
     links:
-      - php7:php
-      - php7:php7
+      - php72:php
+      - php72:php7
       # - php56:php56
 
-  php7:
-    image: dockette/devstack:php71-fpm
+  php72:
+    image: dockette/devstack:php72-fpm
 
     networks:
       default:
