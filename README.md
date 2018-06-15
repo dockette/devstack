@@ -12,7 +12,7 @@ Great LAMP devstack based on **Docker** & **Docker Compose** for your home progr
 ## LAMP
 
 - Apache 2.4.x
-- PHP 7.1.x + Composer + PHPMailer
+- PHP 7.2.x + Composer + PHPMailer
 - PHP 5.6.x + Composer + PHPMailer
 - NodeJS 8.x + NPM 5.x
 - MariaDB 10.1
@@ -55,7 +55,7 @@ Great LAMP devstack based on **Docker** & **Docker Compose** for your home progr
 | Container     | Ports    | IP           |
 |---------------|----------|--------------|
 | Apache        | 80 / 443 | 172.10.10.5  |
-| PHP 7.1 + FPM |          | 172.10.10.10 |
+| PHP 7.2 + FPM |          | 172.10.10.10 |
 | PHP 5.6 + FPM |          | 172.10.10.11 |
 | NodeJS        |          | 172.10.10.12 |
 | Adminer       | 8000     | 172.10.10.13 |
@@ -85,7 +85,7 @@ There are two kind of users inside these containers, **root** (main unix user) a
 
 You can find it in docker-compose.yml [file in section/container](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L139-L147).
 
-On the containers startup, your `users dir` are attached to `php7`, `php56`, `nodejs` containers. You can create your own `.bash_profile`, `.bashrc` files 
+On the containers startup, your `users dir` are attached to `php72`, `php56`, `nodejs` containers. You can create your own `.bash_profile`, `.bashrc` files 
 for easier manipulation inside docker containers.
 
 [**TIP**] There used to be a skeleton in ubuntu/debian/mint system. 
