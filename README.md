@@ -32,7 +32,7 @@ Great LAMP devstack based on **Docker** & **Docker Compose** for your home progr
 	
     > These values are default!
 
-	- `DEVSTACK_DOCKER=~/.devstack/docker-compose.yaml` (docker compose file)
+	- `DEVSTACK_DOCKER=~/.devstack/docker-compose.yml` (docker compose file)
 	- `DEVSTACK_PREFIX=devstack` (container's prefix)
 	- `DEVSTACK_USER=dfx` (attached user in container) [you can leave it]
 
