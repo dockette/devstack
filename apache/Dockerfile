@@ -8,7 +8,7 @@ ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
 
-RUN apt-get update && apt-get update -y && \
+RUN apt-get update && apt-get dist-upgrade -y && \
     apt-get install -y apache2 && \
     a2enmod include && \
     a2enmod rewrite && \
