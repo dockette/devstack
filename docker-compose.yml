@@ -29,6 +29,7 @@ services:
 
     environment:
       - SSH_AUTH_SOCK=/ssh-agent
+      - NETTE_DEBUG=1
 
     volumes_from:
       - data
