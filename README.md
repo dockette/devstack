@@ -184,3 +184,7 @@ ping postgresql
 -----
 
 Thank you for testing, reporting and contributing.
+
+## Maintenance
+
+See [how to contribute](https://github.com/dockette/.github/blob/master/CONTRIBUTING.md) to this package.
