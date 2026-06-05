@@ -4,6 +4,7 @@
 DEVSTACK_PREFIX=${DEVSTACK_PREFIX:-devstack}
 DEVSTACK_DOCKER=${DEVSTACK_DOCKER:-~/.devstack/docker-compose.yml}
 DEVSTACK_USER=${DEVSTACK_USER:-dfx}
+DEVSTACK_SSH_AUTH_SOCK=${DEVSTACK_SSH_AUTH_SOCK:-/tmp/devstack-ssh-agent}
 DEVSTACK_VERSION=1.3
 
 # Functions
@@ -18,6 +19,7 @@ Environment:
     User: $DEVSTACK_USER
     Prefix: $DEVSTACK_PREFIX-[container]
     Configuration: $DEVSTACK_DOCKER
+    SSH agent: ${SSH_AUTH_SOCK:-$DEVSTACK_SSH_AUTH_SOCK}
 
 Commands:
 
@@ -42,8 +44,18 @@ Commands:
 EOF
 }
 
+compose() {
+    if [ -n "$DEVSTACK_COMPOSE" ]; then
+        $DEVSTACK_COMPOSE "$@"
+    elif docker compose version >/dev/null 2>&1; then
+        docker compose "$@"
+    else
+        docker-compose "$@"
+    fi
+}
+
 call() {
-    docker-compose -p "$DEVSTACK_PREFIX" --file "$DEVSTACK_DOCKER" $*
+    SSH_AUTH_SOCK=${SSH_AUTH_SOCK:-$DEVSTACK_SSH_AUTH_SOCK} compose -p "$DEVSTACK_PREFIX" --file "$DEVSTACK_DOCKER" "$@"
 }
 
 up() {
