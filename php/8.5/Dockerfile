@@ -32,7 +32,7 @@ ENV BLACKFIRE_AGENT=tcp://blackfire:8707
 RUN apt-get update && apt-get dist-upgrade -y && \
     # DEPENDENCIES #############################################################
     apt-get install -y --no-install-recommends \
-        wget curl git bash-completion ca-certificates gnupg && \
+        wget curl git bash-completion ca-certificates gnupg openssh-client && \
     mkdir -p /etc/apt/keyrings && \
     # COMPLETION ###############################################################
     cp /etc/skel/.bashrc ~/ && \
@@ -66,6 +66,7 @@ RUN apt-get update && apt-get dist-upgrade -y && \
         php${PHP_VERSION}-redis \
         php${PHP_VERSION}-soap \
         php${PHP_VERSION}-sqlite3 \
+        php${PHP_VERSION}-ssh2 \
         php${PHP_VERSION}-xsl \
         php${PHP_VERSION}-zip \
         php${PHP_VERSION}-xdebug \
