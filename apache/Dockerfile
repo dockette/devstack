@@ -1,12 +1,12 @@
-FROM dockette/stretch
+FROM dockette/debian:bookworm
 
-MAINTAINER Milan Sulc <sulcmil@gmail.com>
+LABEL maintainer="Milan Sulc <sulcmil@gmail.com>"
 
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-ENV APACHE_LOG_DIR /var/log/apache2
-ENV APACHE_LOCK_DIR /var/lock/apache2
-ENV APACHE_PID_FILE /var/run/apache2.pid
+ENV APACHE_RUN_USER=www-data
+ENV APACHE_RUN_GROUP=www-data
+ENV APACHE_LOG_DIR=/var/log/apache2
+ENV APACHE_LOCK_DIR=/var/lock/apache2
+ENV APACHE_PID_FILE=/var/run/apache2.pid
 
 RUN apt-get update && apt-get dist-upgrade -y && \
     apt-get install -y vim && \
@@ -18,8 +18,8 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
 
-ADD sites /etc/apache2/sites-enabled
-ADD conf/devstack.conf /etc/apache2/conf-enabled/999-devstack.conf
+COPY sites /etc/apache2/sites-enabled
+COPY conf/devstack.conf /etc/apache2/conf-enabled/999-devstack.conf
 
 WORKDIR /srv
 

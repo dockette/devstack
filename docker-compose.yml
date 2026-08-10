@@ -1,5 +1,3 @@
-version: '2'
-
 services:
   apache:
     image: dockette/devstack:apache
@@ -19,12 +17,11 @@ services:
       # - 10443:443
 
     links:
-      - php72:php
-      - php72:php7
-      # - php56:php56
+      - php85:php
+      - php85:php8
 
-  php72:
-    image: dockette/devstack:php72-fpm
+  php85:
+    image: dockette/devstack:php85-fpm
 
     networks:
       default:
@@ -42,25 +39,6 @@ services:
       - mariadb:mysql
       # - postgresql:postgresql
       # - blackfire:blackfire
-
-  # php56:
-  #   image: dockette/devstack:php56-fpm
-
-  #   networks:
-  #     default:
-  #       ipv4_address: 172.10.10.11
-
-  #   environment:
-  #     - SSH_AUTH_SOCK=/ssh-agent
-
-  #   volumes_from:
-  #     - data
-  #     - userdirs
-
-  #   links:
-  #     - mariadb:mysql
-  #     - postgresql:postgresql
-  #     - blackfire:blackfire
 
   # nodejs:
   #   image: dockette/devstack:nodejs
@@ -108,7 +86,7 @@ services:
       # - postgresql:postgresql
 
   mariadb:
-    image: mariadb:10.1
+    image: mariadb:12.3
 
     networks:
       default:
@@ -127,7 +105,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
 
   # postgresql:
-  #   image: postgres:9.6
+  #   image: postgres:18
 
   #   networks:
   #     default:
