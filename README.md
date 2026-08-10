@@ -12,15 +12,14 @@ Great LAMP devstack based on **Docker** & **Docker Compose** for your home progr
 ## LAMP
 
 - Apache 2.4.x
-- PHP 7.2.x + Composer + PHPMailer
-- MariaDB 10.1
-- Adminer 4.3.x
+- PHP 8.5.x + Composer + PHPMailer
+- MariaDB 12.3
+- Adminer (see [dockette/adminer](https://github.com/dockette/adminer))
 
 Optional services are prepared in `docker-compose.yml`, but are commented out until you enable them:
 
-- PHP 5.6.x + Composer + PHPMailer
-- NodeJS 8.x + NPM 5.x
-- PostgreSQL 9.6
+- NodeJS 24.x (latest LTS) + NPM
+- PostgreSQL 18
 
 ## Install
 
@@ -61,8 +60,7 @@ Optional services are prepared in `docker-compose.yml`, but are commented out un
 | Container                | Ports    | IP           |
 |--------------------------|----------|--------------|
 | Apache                   | 80 / 443 | 172.10.10.5  |
-| PHP 7.2 + FPM            |          | 172.10.10.10 |
-| PHP 5.6 + FPM (optional) |          | 172.10.10.11 |
+| PHP 8.5 + FPM            |          | 172.10.10.10 |
 | NodeJS (optional)        |          | 172.10.10.12 |
 | Adminer                  | 8000     | 172.10.10.13 |
 | MariaDB                  | 3306     | 172.10.10.20 |
@@ -81,17 +79,17 @@ If you didn't change the `DEVSTACK_DOCKER` variable, you should place your `dock
 After you've followed install section, your devstack should be well prepared. One thing left, you should configure your devstack (passwords, folders, etc). 
 
 You should: 
- - setup your [**data homeland**](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L151-L153)
- - setup MySQL [**root password**](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L125-L127)
- - setup PostgreSQL [**root password**](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L144-L146) if you enable PostgreSQL
+ - setup your [**data homeland**](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L130-L131)
+ - setup MySQL [**root password**](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L104-L105)
+ - setup PostgreSQL [**root password**](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L123-L124) if you enable PostgreSQL
 
 ### Userdirs
 
 There are two kind of users inside these containers, **root** (main unix user) and **dfx** (special user with uid 1000 in all `dockette` based images).
 
-You can find it in docker-compose.yml [file in section/container](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L155-L166).
+You can find it in docker-compose.yml [file in section/container](https://github.com/dockette/devstack/blob/master/docker-compose.yml#L134-L144).
 
-On the containers startup, your `users dir` are attached to `php72` and to `php56`/`nodejs` when you enable those optional containers. You can create your own `.bash_profile`, `.bashrc` files
+On the containers startup, your `users dir` are attached to `php85` and to `nodejs` when you enable that optional container. You can create your own `.bash_profile`, `.bashrc` files
 for easier manipulation inside docker containers.
 
 [**TIP**] There used to be a skeleton in ubuntu/debian/mint system. 
@@ -156,13 +154,8 @@ By default is devstack available on domains:
 - localhost (php)
 - local.dev (php)
 - www.local.dev (php)
-- local.dev7 (php7)
-- www.local.dev7 (php7)
-
-When you enable PHP 5.6, these domains are available too:
-
-- local.dev56 (php56)
-- www.local.dev56 (php56)
+- local.dev8 (php8)
+- www.local.dev8 (php8)
 
 You should add these lines to your `/etc/hosts` file.
 
@@ -170,10 +163,8 @@ You should add these lines to your `/etc/hosts` file.
 # Devstack [webserver]
 127.0.0.1 local.dev
 127.0.0.1 www.local.dev
-127.0.0.1 local.dev7
-127.0.0.1 www.local.dev7
-127.0.0.1 local.dev56
-127.0.0.1 www.local.dev56
+127.0.0.1 local.dev8
+127.0.0.1 www.local.dev8
 
 # Devstack [DB]
 172.10.10.20 mariadb
@@ -185,11 +176,10 @@ Give a try!
 
 ```
 ping local.dev
-ping local.dev7
+ping local.dev8
 ping mariadb
 
 # Optional services
-ping local.dev56
 ping postgresql
 ```
 

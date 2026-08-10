@@ -7,7 +7,7 @@ COMPOSE_SSH_AUTH_SOCK?=/tmp/devstack-ssh-agent
 .PHONY: build
 build:
 	docker buildx build --platform ${DOCKER_PLATFORMS} -t ${DOCKER_IMAGE}:apache apache
-	docker buildx build --platform ${DOCKER_PLATFORMS} -t ${DOCKER_IMAGE}:php72-fpm php/7.2-fpm
+	docker buildx build --platform ${DOCKER_PLATFORMS} -t ${DOCKER_IMAGE}:php85-fpm php/8.5-fpm
 	docker buildx build --platform ${DOCKER_PLATFORMS} -t ${DOCKER_IMAGE}:nodejs nodejs
 
 .PHONY: test
