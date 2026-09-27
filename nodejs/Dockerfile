@@ -3,7 +3,7 @@ FROM dockette/debian:bookworm
 LABEL maintainer="Milan Sulc <sulcmil@gmail.com>"
 
 # NODEJS (latest LTS)
-ENV NODE_VERSION=24.19.0
+ENV NODE_VERSION=24.21.0
 
 RUN apt-get update && apt-get dist-upgrade -y && \
     apt-get install -y wget curl git bash-completion gnupg2 openssh-client && \
