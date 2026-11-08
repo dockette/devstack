@@ -21,6 +21,20 @@ Optional services are prepared in `docker-compose.yml`, but are commented out un
 - NodeJS 24.x (latest LTS) + NPM
 - PostgreSQL 18
 
+## Images
+
+The images are for local development and are **not published** to Docker Hub. Build them on your machine
+before the first start:
+
+```sh
+git clone https://github.com/dockette/devstack.git && cd devstack
+make build
+```
+
+`make build` tags them `dockette/devstack:apache`, `dockette/devstack:php85-fpm` and `dockette/devstack:nodejs`,
+the names `docker-compose.yml` uses. The tags on [Docker Hub](https://hub.docker.com/r/dockette/devstack)
+(`php56`, `php71`, ...) are old builds from 2020 and are not updated.
+
 ## Install
 
 1. Download devstack binary script.

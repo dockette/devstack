@@ -6,7 +6,7 @@ Dockette DevStack is a Docker Compose LAMP development stack. It combines Apache
 
 ## Images
 
-- Docker Hub repository: `dockette/devstack`.
+- The images are local-only: users build them with `make build`, and CI builds them only as a check. Do not add Docker Hub pushes or versioning (`VERSION`, release tags). The old tags on Docker Hub (`dockette/devstack:php56`, ...) are from 2020 and stay frozen.
 - Local image contexts live in `apache/`, `nodejs/`, and `php/*`.
 - The default compose file references tags such as `dockette/devstack:apache`, `dockette/devstack:php85-fpm`, and `dockette/devstack:nodejs`.
 - All images build on `dockette/debian:bookworm`. PHP comes from `packages.sury.org`, Node.js from the official `nodejs.org` tarball, and the Blackfire probe from `packages.blackfire.io`.
