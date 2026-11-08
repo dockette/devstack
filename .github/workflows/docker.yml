@@ -29,17 +29,28 @@ jobs:
   build:
     name: "Build"
     needs: ["test"]
-    runs-on: "ubuntu-latest"
-
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v7
-
-      - name: "Set up Docker Buildx"
-        uses: docker/setup-buildx-action@v4
-
-      - name: "Build selected images"
-        run: "make build"
+    uses: dockette/.github/.github/workflows/docker.yml@master
+    secrets: inherit
+    with:
+      image: "dockette/devstack"
+      tag: "${{ matrix.tag }}"
+      context: "${{ matrix.context }}"
+      platforms: "${{ matrix.platforms }}"
+      push: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - tag: apache
+            context: apache
+            platforms: linux/amd64,linux/arm64
+          - tag: php85-fpm
+            context: php/8.5-fpm
+            platforms: linux/amd64,linux/arm64
+          # the Dockerfile downloads the linux-x64 Node.js build
+          - tag: nodejs
+            context: nodejs
+            platforms: linux/amd64
 
   docs:
     name: "Docs"
